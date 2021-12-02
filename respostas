@@ -1,0 +1,119 @@
+1. Assinale verdadeiro ou falso:
+a. (V) Objetos são modelos para classes;
+b. (V) Atributos de uma classe devem ser obrigatoriamente inicializados para
+que as classes compilem;
+c. (V) Uma classe de cadastro é responsável por manter o controle de outras
+classes mais simples, que chamamos de classes básicas;
+d. (V) Uma variável declarada dentro de um método deve ser inicializada para
+que a classe seja compilável;
+e. (F) Uma variável que seja uma classe declarada em um método é
+automaticamente inicializada com null;
+f. (V) Construtores são rotinas especiais que servem para inicializar e
+configurar os objetos no momento da instanciação;
+g. (F) Construtores não possuem tipo de retorno e podem ou não ter
+parâmetros;
+h. (V) Uma classe pode ter várias instâncias;
+
+
+//Questao 02
+
+class Triangulo {
+	a: number;
+	b: number;
+	c: number;
+
+	constructor(a: number, b: number, c: number) {
+		this.a = a;
+		this.b = b;
+		this.c = c;
+	}
+    
+    ehTriangulo(): boolean {
+        if (this.a < this.b + this.c && this.b < this.a + this.c && this.c < this.a + this.b){
+            return true;
+        }
+        return false;     
+    }
+
+    ehEquilatero(a: number, b: number, c: number) :boolean {
+        if(this.ehTriangulo() == true){
+            if((a == b) && (a == c)){
+                return true;
+            }
+            return false;
+        }
+    }
+
+}
+
+let triangulo1 : Triangulo[] = [];
+triangulo1[0] = new Triangulo(5,6,9);
+console.log(triangulo1[0].ehTriangulo());
+
+//Questao 04
+
+class Postagem {
+	id: number;
+	texto: string;
+    qtdCurtidas: number;
+
+	constructor(id: number, texto: string, qtdCurtidas: number) {
+		this.id = id;
+		this.texto = texto;
+		this.qtdCurtidas = qtdCurtidas;
+	}
+
+	Curtir(valor: number): number {
+		return this.qtdCurtidas += valor;
+	}
+
+    toString(): void{
+        console.log("Id: " + this.id);
+        console.log("Texto: " + this.texto);
+        console.log("Quantidade Curtidas: " + this.qtdCurtidas);     
+    }
+}
+
+let post1 : Postagem = new Postagem(1, "Postagem1", 350);
+let post2 : Postagem = new Postagem(2, "Postagem2", 500);
+let post3 : Postagem = new Postagem(3, "Postagem3", 260);
+
+class Microblog{
+
+	posts: Postagem[] = [];
+
+	incluirPost(post: Postagem) :void{
+		this.posts.push(post);
+	}
+
+
+	consultaID(dado: number): number {
+		let id : number = -1;
+		for (let i: number = 0; i < this.posts.length; i++) {
+			if (this.posts[i].id == dado) {
+				id = i;
+				break;
+			}
+		}
+		return id;
+	}
+
+	excluir(dado: number): void {
+		let id: number = this.consultaID(dado);
+		if (id != -1) {
+			for (let i: number = id; i < this.posts.length; i++) {
+				this.posts[i] = this.posts[i+1];
+			}
+			this.posts.pop();
+		} 
+	}
+
+}
+
+
+
+
+
+
+
+
